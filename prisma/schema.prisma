@@ -12,9 +12,83 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String
   createdAt DateTime @default(now())
+}
+
+model Sprint {
+  id        Int        @id @default(autoincrement())
+  sprint    String     @db.VarChar(50)
+  cabeceras Cabecera[]
+}
+
+model Cabecera {
+  id          Int       @id @default(autoincrement())
+  idSprint    Int
+  fecha       DateTime
+  observacion String    @db.VarChar(50)
+  sgcan       Boolean
+  sprint      Sprint    @relation(fields: [idSprint], references: [id])
+  detalles    Detalle[]
+}
+
+model Modulo {
+  id         Int         @id @default(autoincrement())
+  modulo     String      @db.VarChar(50)
+  documentos Documento[]
+  detalles   Detalle[]
+}
+
+model Documento {
+  id        Int       @id @default(autoincrement())
+  documento String    @db.VarChar(50)
+  idModulo  Int
+  modulo    Modulo    @relation(fields: [idModulo], references: [id])
+  detalles  Detalle[]
+}
+
+model Categoria {
+  id        Int       @id @default(autoincrement())
+  categoria String    @db.VarChar(100)
+  metodos   Metodo[]
+  detalles  Detalle[]
+}
+
+model Metodo {
+  id          Int       @id @default(autoincrement())
+  codigo      String    @db.VarChar(20)
+  metodo      String    @db.VarChar(100)
+  idCategoria Int
+  categoria   Categoria @relation(fields: [idCategoria], references: [id])
+  detalles    Detalle[]
+}
+
+model Detalle {
+  id          Int     @id @default(autoincrement())
+  idCabecera  Int
+  idCategoria Int
+  idMetodo    Int
+  idModulo    Int
+  idDocumento Int
+  esquema1    Decimal @db.Money
+  esquema2    Decimal @db.Money
+  esquema3    Decimal @db.Money
+  esquema4    Decimal @db.Money
+  esquema5    Decimal @db.Money
+  esquema6    Decimal @db.Money
+  es          Decimal @db.Money
+  flujo       Decimal @db.Money
+  avance      Decimal @db.Money
+  observacion String  @db.Text
+  observado   Boolean
+
+  cabecera  Cabecera  @relation(fields: [idCabecera], references: [id])
+  categoria Categoria @relation(fields: [idCategoria], references: [id])
+  metodo    Metodo    @relation(fields: [idMetodo], references: [id])
+  modulo    Modulo    @relation(fields: [idModulo], references: [id])
+  documento Documento @relation(fields: [idDocumento], references: [id])
 }
