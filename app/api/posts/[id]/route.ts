@@ -2,13 +2,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
-export async function GET(request: Request, { params }: Params) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const id = parseInt(params.id, 10);
 
   try {
@@ -18,12 +12,13 @@ export async function GET(request: Request, { params }: Params) {
     } else {
       return NextResponse.json({ error: 'Post no encontrado' }, { status: 404 });
     }
-  } catch {
+  } catch (error) {
+    console.error('Error obteniendo el post:', error);
     return NextResponse.json({ error: 'Error obteniendo el post' }, { status: 500 });
   }
 }
 
-export async function PUT(request: Request, { params }: Params) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
   const id = parseInt(params.id, 10);
   const { title, content } = await request.json();
 
@@ -33,18 +28,20 @@ export async function PUT(request: Request, { params }: Params) {
       data: { title, content },
     });
     return NextResponse.json(post);
-  } catch {
+  } catch (error) {
+    console.error('Error actualizando el post:', error);
     return NextResponse.json({ error: 'Error actualizando el post' }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request, { params }: Params) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   const id = parseInt(params.id, 10);
 
   try {
     await prisma.post.delete({ where: { id } });
     return NextResponse.json(null, { status: 204 });
-  } catch {
+  } catch (error) {
+    console.error('Error eliminando el post:', error);
     return NextResponse.json({ error: 'Error eliminando el post' }, { status: 500 });
   }
 }
