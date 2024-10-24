@@ -18,7 +18,7 @@ export async function GET(request: Request, { params }: Params) {
     } else {
       return NextResponse.json({ error: 'Post no encontrado' }, { status: 404 });
     }
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Error obteniendo el post' }, { status: 500 });
   }
 }
@@ -33,7 +33,7 @@ export async function PUT(request: Request, { params }: Params) {
       data: { title, content },
     });
     return NextResponse.json(post);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Error actualizando el post' }, { status: 500 });
   }
 }
@@ -44,7 +44,7 @@ export async function DELETE(request: Request, { params }: Params) {
   try {
     await prisma.post.delete({ where: { id } });
     return NextResponse.json(null, { status: 204 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Error eliminando el post' }, { status: 500 });
   }
 }
