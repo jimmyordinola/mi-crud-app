@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todos los detalles (GET /api/detalles)
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const detalles = await prisma.detalle.findMany({
       include: {

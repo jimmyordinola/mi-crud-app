@@ -7,9 +7,9 @@ import type { NextRequest } from 'next/server';
 // Obtener un detalle por ID (GET /api/detalles/[id])
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
   try {
     const detalle = await prisma.detalle.findUnique({
       where: { id: parseInt(id, 10) },
@@ -41,9 +41,9 @@ export async function GET(
 // Actualizar un detalle por ID (PUT /api/detalles/[id])
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
   try {
     const {
       idCabecera,
@@ -98,9 +98,9 @@ export async function PUT(
 // Eliminar un detalle por ID (DELETE /api/detalles/[id])
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
   try {
     await prisma.detalle.delete({
       where: { id: parseInt(id, 10) },
