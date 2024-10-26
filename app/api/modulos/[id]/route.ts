@@ -4,8 +4,12 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener un módulo por ID (GET /api/modulos/[id])
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const modulo = await prisma.modulo.findUnique({
       where: { id: parseInt(id, 10) },
@@ -22,8 +26,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Actualizar un módulo por ID (PUT /api/modulos/[id])
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const { modulo } = await request.json();
     const updatedModulo = await prisma.modulo.update({
@@ -38,8 +46,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Eliminar un módulo por ID (DELETE /api/modulos/[id])
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     await prisma.modulo.delete({
       where: { id: parseInt(id, 10) },
