@@ -4,8 +4,8 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todos los sprints (GET /api/sprints)
-export async function GET(request: NextRequest) {
-  try {console.log('hola');
+export async function GET() {
+  try {
     const sprints = await prisma.sprint.findMany();
     return NextResponse.json(sprints);
   } catch (error) {

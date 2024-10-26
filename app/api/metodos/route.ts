@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todos los métodos (GET /api/metodos)
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const metodos = await prisma.metodo.findMany({
       include: {

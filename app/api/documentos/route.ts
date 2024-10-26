@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todos los documentos (GET /api/documentos)
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const documentos = await prisma.documento.findMany({
       include: {

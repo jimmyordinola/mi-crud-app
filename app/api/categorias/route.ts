@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todas las categorías (GET /api/categorias)
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const categorias = await prisma.categoria.findMany();
     return NextResponse.json(categorias);
