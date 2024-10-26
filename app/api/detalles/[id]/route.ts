@@ -7,9 +7,10 @@ import type { NextRequest } from 'next/server';
 // Obtener un detalle por ID (GET /api/detalles/[id])
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
 ) {
-  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     const detalle = await prisma.detalle.findUnique({
       where: { id: parseInt(id, 10) },
@@ -41,9 +42,10 @@ export async function GET(
 // Actualizar un detalle por ID (PUT /api/detalles/[id])
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
 ) {
-  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     const {
       idCabecera,
@@ -98,9 +100,10 @@ export async function PUT(
 // Eliminar un detalle por ID (DELETE /api/detalles/[id])
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
 ) {
-  const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     await prisma.detalle.delete({
       where: { id: parseInt(id, 10) },
