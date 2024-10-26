@@ -24,7 +24,7 @@ export async function GET() {
 }
 
 // Crear un nuevo detalle (POST /api/detalles)
-export async function POST() {
+export async function POST(request: NextRequest) {
   try {
     const {
       idCabecera,
