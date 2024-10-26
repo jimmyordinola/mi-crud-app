@@ -4,8 +4,12 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener un documento por ID (GET /api/documentos/[id])
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     const documento = await prisma.documento.findUnique({
       where: { id: parseInt(id, 10) },
@@ -25,8 +29,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Actualizar un documento por ID (PUT /api/documentos/[id])
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     const { documento, idModulo } = await request.json();
     const updatedDocumento = await prisma.documento.update({
@@ -44,8 +52,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Eliminar un documento por ID (DELETE /api/documentos/[id])
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params` sin conversión a promesa
   try {
     await prisma.documento.delete({
       where: { id: parseInt(id, 10) },
