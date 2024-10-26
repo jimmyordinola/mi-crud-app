@@ -4,8 +4,12 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener un sprint por ID (GET /api/sprints/[id])
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const sprint = await prisma.sprint.findUnique({
       where: { id: parseInt(id, 10) },
@@ -22,8 +26,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Actualizar un sprint por ID (PUT /api/sprints/[id])
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const { sprint } = await request.json();
     const updatedSprint = await prisma.sprint.update({
@@ -38,8 +46,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Eliminar un sprint por ID (DELETE /api/sprints/[id])
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     await prisma.sprint.delete({
       where: { id: parseInt(id, 10) },
