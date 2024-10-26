@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 
 // Obtener un detalle por ID (GET /api/detalles/[id])
 export async function GET(
-  request: NextRequest,
+
   context: { params: { id: string } }
 ) {
   const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
@@ -97,7 +97,7 @@ export async function PUT(
 
 // Eliminar un detalle por ID (DELETE /api/detalles/[id])
 export async function DELETE(
-  request: NextRequest,
+
   context: { params: { id: string } }
 ) {
   const { id } = await Promise.resolve(context.params); // Asegura que el acceso a `params` sea asincrónico
