@@ -4,13 +4,17 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener un método por ID (GET /api/metodos/[id])
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const metodo = await prisma.metodo.findUnique({
       where: { id: parseInt(id, 10) },
       include: {
-        categoria: true, // Incluimos los datos de la categoría relacionada
+        categoria: true, // Incluye los datos de la categoría relacionada
       },
     });
     if (metodo) {
@@ -25,8 +29,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Actualizar un método por ID (PUT /api/metodos/[id])
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     const { codigo, metodo, idCategoria } = await request.json();
     const updatedMetodo = await prisma.metodo.update({
@@ -45,8 +53,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // Eliminar un método por ID (DELETE /api/metodos/[id])
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(
+  request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any
+) {
+  const { id } = context.params; // Acceso directo a `params`
   try {
     await prisma.metodo.delete({
       where: { id: parseInt(id, 10) },
