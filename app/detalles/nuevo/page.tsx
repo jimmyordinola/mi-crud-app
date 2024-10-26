@@ -36,14 +36,14 @@ export default function NuevoDetalle() {
   const [idModulo, setIdModulo] = useState<number | null>(null);
   const [idDocumento, setIdDocumento] = useState<number | null>(null);
   const [esquema1, setEsquema1] = useState<number>(0);
-  const [esquema2, setEsquema2] = useState<number>(0);
-  const [esquema3, setEsquema3] = useState<number>(0);
-  const [esquema4, setEsquema4] = useState<number>(0);
-  const [esquema5, setEsquema5] = useState<number>(0);
-  const [esquema6, setEsquema6] = useState<number>(0);
-  const [es, setEs] = useState<number>(0);
-  const [flujo, setFlujo] = useState<number>(0);
-  const [avance, setAvance] = useState<number>(0);
+  // const [esquema2, setEsquema2] = useState<number>(0); // Comentado por no usarse
+  // const [esquema3, setEsquema3] = useState<number>(0); // Comentado por no usarse
+  // const [esquema4, setEsquema4] = useState<number>(0); // Comentado por no usarse
+  // const [esquema5, setEsquema5] = useState<number>(0); // Comentado por no usarse
+  // const [esquema6, setEsquema6] = useState<number>(0); // Comentado por no usarse
+  // const [es, setEs] = useState<number>(0); // Comentado por no usarse
+  // const [flujo, setFlujo] = useState<number>(0); // Comentado por no usarse
+  // const [avance, setAvance] = useState<number>(0); // Comentado por no usarse
   const [observacion, setObservacion] = useState('');
   const [observado, setObservado] = useState(false);
 
@@ -105,14 +105,14 @@ export default function NuevoDetalle() {
         idModulo,
         idDocumento,
         esquema1,
-        esquema2,
-        esquema3,
-        esquema4,
-        esquema5,
-        esquema6,
-        es,
-        flujo,
-        avance,
+        // esquema2, // Comentado por no usarse
+        // esquema3, // Comentado por no usarse
+        // esquema4, // Comentado por no usarse
+        // esquema5, // Comentado por no usarse
+        // esquema6, // Comentado por no usarse
+        // es, // Comentado por no usarse
+        // flujo, // Comentado por no usarse
+        // avance, // Comentado por no usarse
         observacion,
         observado,
       }),
@@ -211,9 +211,6 @@ export default function NuevoDetalle() {
             onChange={(e) => setEsquema1(parseFloat(e.target.value))}
           />
         </label>
-
-        {/* Repite para esquema2 a esquema6, es, flujo, avance */}
-        {/* Agrega los campos según necesites */}
 
         <label>
           Observación:
