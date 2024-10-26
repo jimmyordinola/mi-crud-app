@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
 
 // Obtener todas las cabeceras (GET /api/cabeceras)
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const cabeceras = await prisma.cabecera.findMany({
       include: {
@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
 }
 
 // Crear una nueva cabecera (POST /api/cabeceras)
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
-    const { idSprint, fecha, observacion, sgcan } = await request.json();
+    const { idSprint, fecha, observacion, sgcan } = await _request.json();
     const newCabecera = await prisma.cabecera.create({
       data: {
         idSprint,
