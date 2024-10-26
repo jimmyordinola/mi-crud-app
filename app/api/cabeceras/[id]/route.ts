@@ -7,7 +7,8 @@ import type { NextRequest } from 'next/server';
 // Obtener una cabecera por ID (GET /api/cabeceras/[id])
 export async function GET(
   request: NextRequest,
-  context: any // Eliminamos el tipo explícito y usamos 'any'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any // Deshabilitamos la regla solo en esta línea
 ) {
   const { id } = context.params;
   try {
@@ -45,6 +46,7 @@ export async function GET(
 // Actualizar una cabecera por ID (PUT /api/cabeceras/[id])
 export async function PUT(
   request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: any
 ) {
   const { id } = context.params;
@@ -72,6 +74,7 @@ export async function PUT(
 // Eliminar una cabecera por ID (DELETE /api/cabeceras/[id])
 export async function DELETE(
   request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: any
 ) {
   const { id } = context.params;
