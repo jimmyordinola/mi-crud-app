@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 
 // Obtener una cabecera por ID (GET /api/cabeceras/[id])
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
@@ -44,7 +44,7 @@ export async function GET(
 
 // Actualizar una cabecera por ID (PUT /api/cabeceras/[id])
 export async function PUT(
-  request: NextRequest,
+ _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
@@ -71,7 +71,7 @@ export async function PUT(
 
 // Eliminar una cabecera por ID (DELETE /api/cabeceras/[id])
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
