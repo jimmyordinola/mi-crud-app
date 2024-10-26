@@ -3,14 +3,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import type { NextRequest } from 'next/server';
-import type { RequestContext } from 'next/dist/server/web/spec-extension/request-context';
 
 // Obtener una cabecera por ID (GET /api/cabeceras/[id])
 export async function GET(
   _request: NextRequest,
-  context: RequestContext // Cambiado el tipo de argumento aquí
+  { params }: { params: { id: string } } // Ajustado el tipo directamente aquí
 ) {
-  const { id } = context.params as { id: string }; // Convertimos 'context.params' con un tipo seguro
+  const { id } = params;
   try {
     const cabecera = await prisma.cabecera.findUnique({
       where: { id: parseInt(id, 10) },
@@ -46,9 +45,9 @@ export async function GET(
 // Actualizar una cabecera por ID (PUT /api/cabeceras/[id])
 export async function PUT(
   _request: NextRequest,
-  context: RequestContext // Cambiado el tipo de argumento aquí
+  { params }: { params: { id: string } } // Ajustado el tipo directamente aquí
 ) {
-  const { id } = context.params as { id: string }; // Convertimos 'context.params' con un tipo seguro
+  const { id } = params;
   try {
     const { idSprint, fecha, observacion, sgcan } = await _request.json();
     const updatedCabecera = await prisma.cabecera.update({
@@ -73,9 +72,9 @@ export async function PUT(
 // Eliminar una cabecera por ID (DELETE /api/cabeceras/[id])
 export async function DELETE(
   _request: NextRequest,
-  context: RequestContext // Cambiado el tipo de argumento aquí
+  { params }: { params: { id: string } } // Ajustado el tipo directamente aquí
 ) {
-  const { id } = context.params as { id: string }; // Convertimos 'context.params' con un tipo seguro
+  const { id } = params;
   try {
     await prisma.cabecera.delete({
       where: { id: parseInt(id, 10) },
