@@ -1,7 +1,7 @@
 // app/detalles/nuevo/page.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Cabecera {
@@ -29,21 +29,21 @@ interface Documento {
   documento: string;
 }
 
-export default function NuevoDetalle() {
+export default function NuevoDetalleWrapper() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <NuevoDetalle />
+    </Suspense>
+  );
+}
+
+function NuevoDetalle() {
   const [idCabecera, setIdCabecera] = useState<number | null>(null);
   const [idCategoria, setIdCategoria] = useState<number | null>(null);
   const [idMetodo, setIdMetodo] = useState<number | null>(null);
   const [idModulo, setIdModulo] = useState<number | null>(null);
   const [idDocumento, setIdDocumento] = useState<number | null>(null);
   const [esquema1, setEsquema1] = useState<number>(0);
-  // const [esquema2, setEsquema2] = useState<number>(0); // Comentado por no usarse
-  // const [esquema3, setEsquema3] = useState<number>(0); // Comentado por no usarse
-  // const [esquema4, setEsquema4] = useState<number>(0); // Comentado por no usarse
-  // const [esquema5, setEsquema5] = useState<number>(0); // Comentado por no usarse
-  // const [esquema6, setEsquema6] = useState<number>(0); // Comentado por no usarse
-  // const [es, setEs] = useState<number>(0); // Comentado por no usarse
-  // const [flujo, setFlujo] = useState<number>(0); // Comentado por no usarse
-  // const [avance, setAvance] = useState<number>(0); // Comentado por no usarse
   const [observacion, setObservacion] = useState('');
   const [observado, setObservado] = useState(false);
 
@@ -85,13 +85,7 @@ export default function NuevoDetalle() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !idCabecera ||
-      !idCategoria ||
-      !idMetodo ||
-      !idModulo ||
-      !idDocumento
-    ) {
+    if (!idCabecera || !idCategoria || !idMetodo || !idModulo || !idDocumento) {
       alert('Por favor, completa todos los campos obligatorios.');
       return;
     }
@@ -105,14 +99,6 @@ export default function NuevoDetalle() {
         idModulo,
         idDocumento,
         esquema1,
-        // esquema2, // Comentado por no usarse
-        // esquema3, // Comentado por no usarse
-        // esquema4, // Comentado por no usarse
-        // esquema5, // Comentado por no usarse
-        // esquema6, // Comentado por no usarse
-        // es, // Comentado por no usarse
-        // flujo, // Comentado por no usarse
-        // avance, // Comentado por no usarse
         observacion,
         observado,
       }),
@@ -132,7 +118,7 @@ export default function NuevoDetalle() {
           <select
             value={idCabecera ?? ''}
             onChange={(e) => setIdCabecera(Number(e.target.value))}
-            disabled={idCabeceraParam !== null} // Deshabilita el select si idCabecera viene en los parámetros
+            disabled={idCabeceraParam !== null}
           >
             <option value="">Selecciona una cabecera</option>
             {cabeceras.map((cabecera) => (
