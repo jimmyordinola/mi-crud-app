@@ -7,9 +7,9 @@ import type { NextRequest } from 'next/server';
 // Obtener una cabecera por ID (GET /api/cabeceras/[id])
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } } // Cambiado a "context" y sin especificar un tipo adicional
+  context: any // Eliminamos el tipo explícito y usamos 'any'
 ) {
-  const { id } = context.params; // Usamos context.params directamente
+  const { id } = context.params;
   try {
     const cabecera = await prisma.cabecera.findUnique({
       where: { id: parseInt(id, 10) },
@@ -45,7 +45,7 @@ export async function GET(
 // Actualizar una cabecera por ID (PUT /api/cabeceras/[id])
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
   const { id } = context.params;
   try {
@@ -72,7 +72,7 @@ export async function PUT(
 // Eliminar una cabecera por ID (DELETE /api/cabeceras/[id])
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
   const { id } = context.params;
   try {
