@@ -1,8 +1,14 @@
-// components/Sidebar.tsx
 'use client';
 
 import Link from 'next/link';
-import { FaHome, FaCog, FaShoppingBag, FaFileAlt, FaChartBar } from 'react-icons/fa';
+import { 
+  FaFlag, 
+  FaPuzzlePiece, 
+  FaFileAlt, 
+  FaTools, 
+  FaTags,
+  FaHeading 
+} from 'react-icons/fa';
 
 export default function Sidebar() {
   return (
@@ -32,7 +38,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaHome /> 
+          <FaFlag /> 
           <span>Sprints</span>
         </Link>
         
@@ -47,7 +53,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaCog /> 
+          <FaPuzzlePiece /> 
           <span>Módulos</span>
         </Link>
         
@@ -62,7 +68,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaShoppingBag /> 
+          <FaFileAlt /> 
           <span>Documentos</span>
         </Link>
         
@@ -77,7 +83,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaFileAlt /> 
+          <FaTools /> 
           <span>Métodos</span>
         </Link>
         
@@ -92,7 +98,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaChartBar /> 
+          <FaTags /> 
           <span>Categorías</span>
         </Link>
 
@@ -107,7 +113,7 @@ export default function Sidebar() {
             textDecoration: 'none'
           }}
         >
-          <FaChartBar /> 
+          <FaHeading /> 
           <span>Cabeceras</span>
         </Link>
       </nav>

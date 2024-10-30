@@ -1,4 +1,3 @@
-// app/cabeceras/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -16,51 +15,92 @@ interface Cabecera {
   };
 }
 
-export default function CabecerasPage() {
+const CabecerasPage = () => {
   const [cabeceras, setCabeceras] = useState<Cabecera[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('/api/cabeceras')
-      .then((res) => res.json())
-      .then((data) => setCabeceras(data));
+    const fetchCabeceras = async () => {
+      try {
+        const res = await fetch('/api/cabeceras');
+        const data = await res.json();
+        setCabeceras(data);
+      } catch (error) {
+        console.error('Error al obtener las cabeceras:', error);
+      }
+    };
+
+    fetchCabeceras();
   }, []);
 
+  const filteredCabeceras = cabeceras.filter((cabecera) =>
+    cabecera.observacion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cabecera.sprint.sprint.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cabecera.id.toString().includes(searchTerm)
+  );
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center">Lista de Cabeceras</h1>
-      <div className="flex justify-end mb-4">
-        <Link href="/cabeceras/nuevo" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Lista de Cabeceras</h1>
+      
+      <div className="mb-4 flex justify-between items-center">
+        {/* Botón modificado con clases más específicas */}
+        <Link
+          href="/cabeceras/nuevo"
+          className="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-2 rounded-full shadow-sm hover:shadow-md active:transform active:scale-95 transition-all duration-200"
+        >
+          <span className="mr-1">+</span>
           Crear Nueva Cabecera
         </Link>
       </div>
-      <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">ID</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">Sprint</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">Fecha</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">Observación</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">SGCAN</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cabeceras.map((cabecera) => (
-            <tr key={cabecera.id} className="border-b hover:bg-gray-100 transition">
-              <td className="py-3 px-4">{cabecera.id}</td>
-              <td className="py-3 px-4">{cabecera.sprint?.sprint}</td>
-              <td className="py-3 px-4">{new Date(cabecera.fecha).toLocaleDateString()}</td>
-              <td className="py-3 px-4">{cabecera.observacion}</td>
-              <td className="py-3 px-4">{cabecera.sgcan ? 'Sí' : 'No'}</td>
-              <td className="py-3 px-4">
-                <Link href={`/cabeceras/${cabecera.id}`} className="text-blue-500 hover:underline">
-                  Ver/Editar
-                </Link>
-              </td>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border p-2 text-left">ID</th>
+              <th className="border p-2 text-left">Sprint</th>
+              <th className="border p-2 text-left">Fecha</th>
+              <th className="border p-2 text-left">Observación</th>
+              <th className="border p-2 text-left">SGCAN</th>
+              <th className="border p-2 text-left">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredCabeceras.map((cabecera) => (
+              <tr key={cabecera.id} className="hover:bg-gray-50">
+                <td className="border p-2">#{cabecera.id}</td>
+                <td className="border p-2">{cabecera.sprint.sprint}</td>
+                <td className="border p-2">
+                  {new Date(cabecera.fecha).toLocaleDateString('es-ES')}
+                </td>
+                <td className="border p-2">{cabecera.observacion}</td>
+                <td className="border p-2">
+                  <span className={`px-2 py-1 rounded ${
+                    cabecera.sgcan ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  }`}>
+                    {cabecera.sgcan ? 'Sí' : 'No'}
+                  </span>
+                </td>
+                <td className="border p-2">
+                  <Link
+                    href={`/cabeceras/${cabecera.id}`}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    Ver Detalles
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-4 text-sm text-gray-600">
+        Mostrando {filteredCabeceras.length} de {cabeceras.length} registros
+      </div>
     </div>
   );
-}
+};
+
+export default CabecerasPage;
